@@ -3,8 +3,8 @@ import { Room } from './interfaces/room.interface';
 import { CreateRoomDto } from './dto/create-room.dto';
 
 @Injectable({})
-export class RoomsService {
-  private readonly rooms: Room[] = [
+export class roomService {
+  private readonly room: Room[] = [
     {
       id: 1,
       name: 'SM Entertainment',
@@ -25,7 +25,11 @@ export class RoomsService {
     return { id: 1, ...data };
   }
 
-  async findAllRooms(): Promise<Room[]> {
-    return this.rooms;
+  async findAllroom(): Promise<Room[]> {
+    return this.room;
+  }
+
+  async findOneRoom(id: number) {
+    return this.room.find((x) => x.id === id);
   }
 }

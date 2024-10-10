@@ -5,6 +5,9 @@ import { NestFactory } from '@nestjs/core';
 // } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { HttpExceptionFilter } from './common/exception/http-exception.exception.filter';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   // NestFactory class creates a Nest app instance
@@ -26,6 +29,11 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     abortOnError: false,
   });
+
+  // app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalPipes(new ValidationPipe());
+
+  // app.use(LoggerMiddleware);
 
   // Create app with Fastify adapter (HTTP Provider)
   // const app = await NestFactory.create<NestFastifyApplication>(
